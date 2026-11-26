@@ -7,7 +7,6 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Pygame](https://img.shields.io/badge/Pygame-2E8B57?style=flat-square)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
-![Reinforcement Learning](https://img.shields.io/badge/Reinforcement%20Learning-6D28D9?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-In%20Development-F59E0B?style=flat-square)
 
 **AIE322 — Advanced Machine Learning | Fall 2026**  
