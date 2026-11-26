@@ -257,7 +257,7 @@ Results will include means and variability (e.g., standard deviation across runs
 | Team member | GitHub | Primary responsibility |
 | :--- | :--- | :--- |
 | Hany | [@hanyzead123](https://github.com/hanyzead123) | Environment, configuration and environment testing |
-| Mohamed | Username pending | Reachable states, transition model and Value Iteration |
+| Mohamed | [@vexon-016](https://github.com/vexon-016) | Reachable states, transition model and Value Iteration |
 | Basmala | [@Basmala-ElKady](https://github.com/Basmala-ElKady) | Q-Learning, training pipeline and model persistence |
 | Gwerio | [@owairyakassem](https://github.com/owairyakassem) | REINFORCE, learning curves and comparison charts |
 | Hoda | [@HodaMahmoud-2005](https://github.com/HodaMahmoud-2005) | Pygame UI, evaluation, integration and documentation |
