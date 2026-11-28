@@ -1,0 +1,636 @@
+[
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODSKWIw",
+                              "login":  "HodaMahmoud-2005",
+                              "name":  "Hoda Mahmoud Saad",
+                              "databaseId":  220370467
+                          }
+                      ],
+        "body":  "## Objective\nDiscover only states that can actually occur from the approved initial-state set.\n\n## Ownership and scope\n- Backlog ID: SNAKE-06\n- Priority: High\n- Files: value_iteration.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 04: Implement deterministic transition interface\n\n## Tasks and acceptance criteria\n- [ ] Use a BFS queue and visited set to enumerate full states from all permitted starting configurations.\n- [ ] Expand all three actions using transition(); do not expand true terminal outcomes.\n- [ ] Deduplicate states and record the number of reachable nonterminal states.\n- [ ] Report enumeration runtime and handle resource limits explicitly rather than silently omitting states.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41yQ",
+                           "name":  "dynamic-programming",
+                           "description":  "",
+                           "color":  "8250df"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  6,
+        "state":  "OPEN",
+        "title":  "Enumerate reachable Snake states using BFS",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/6"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODSKWIw",
+                              "login":  "HodaMahmoud-2005",
+                              "name":  "Hoda Mahmoud Saad",
+                              "databaseId":  220370467
+                          }
+                      ],
+        "body":  "## Objective\nCache the model required by Bellman updates.\n\n## Ownership and scope\n- Backlog ID: SNAKE-07\n- Priority: High\n- Files: value_iteration.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 06: Enumerate reachable Snake states using BFS\n\n## Tasks and acceptance criteria\n- [ ] Build a state-action mapping with next state, reward and terminal flag for every reachable nonterminal state and all three actions.\n- [ ] Reuse the shared transition implementation rather than copying game rules.\n- [ ] Validate that nonterminal successor states exist in the enumerated set and that terminal outcomes require no bootstrap.\n- [ ] Record model size and construction time.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41yQ",
+                           "name":  "dynamic-programming",
+                           "description":  "",
+                           "color":  "8250df"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  7,
+        "state":  "OPEN",
+        "title":  "Build the environment transition model",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/7"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODSKWIw",
+                              "login":  "HodaMahmoud-2005",
+                              "name":  "Hoda Mahmoud Saad",
+                              "databaseId":  220370467
+                          }
+                      ],
+        "body":  "## Objective\nCompute discounted state values with the Bellman optimality equation.\n\n## Ownership and scope\n- Backlog ID: SNAKE-08\n- Priority: High\n- Files: value_iteration.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 07: Build the environment transition model\n\n## Tasks and acceptance criteria\n- [ ] Initialize V(s)=0 and use shared gamma.\n- [ ] Implement synchronous Bellman sweeps with max over three actions; use zero future value for terminal transitions.\n- [ ] Track max absolute value change per sweep; stop when it falls below tolerance or an explicit iteration cap.\n- [ ] Report whether convergence was achieved and avoid prebuilt RL algorithm implementations.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41yQ",
+                           "name":  "dynamic-programming",
+                           "description":  "",
+                           "color":  "8250df"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  8,
+        "state":  "OPEN",
+        "title":  "Implement Value Iteration from scratch",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/8"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODSKWIw",
+                              "login":  "HodaMahmoud-2005",
+                              "name":  "Hoda Mahmoud Saad",
+                              "databaseId":  220370467
+                          }
+                      ],
+        "body":  "## Objective\nTurn converged state values into a usable policy and planning metrics.\n\n## Ownership and scope\n- Backlog ID: SNAKE-09\n- Priority: High\n- Files: value_iteration.py, models/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 08: Implement Value Iteration from scratch\n\n## Tasks and acceptance criteria\n- [ ] Extract argmax action for each reachable state using reward plus discounted successor value.\n- [ ] Use documented deterministic tie-breaking and handle unseen states explicitly.\n- [ ] Export policy, state count, residual history, convergence status and planning time through the shared model format.\n- [ ] Include state enumeration and model construction in total planning time.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41yQ",
+                           "name":  "dynamic-programming",
+                           "description":  "",
+                           "color":  "8250df"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  9,
+        "state":  "OPEN",
+        "title":  "Extract optimal policy and record convergence",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/9"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODSKWIw",
+                              "login":  "HodaMahmoud-2005",
+                              "name":  "Hoda Mahmoud Saad",
+                              "databaseId":  220370467
+                          }
+                      ],
+        "body":  "## Objective\nValidate the DP implementation and explain its assumptions.\n\n## Ownership and scope\n- Backlog ID: SNAKE-10\n- Priority: Medium\n- Files: tests/test_value_iteration.py, report/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 08: Implement Value Iteration from scratch, Backlog 09: Extract optimal policy and record convergence\n\n## Tasks and acceptance criteria\n- [ ] Test a hand-calculated Bellman update and a terminal transition.\n- [ ] Check state coverage, policy validity, residual threshold and successful execution on small known scenarios.\n- [ ] Document the equation, deterministic model, reachable state count and computational complexity.\n- [ ] Explain the difference between planning iterations and training episodes and the external time limit.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFUnhVQ",
+                           "name":  "documentation",
+                           "description":  "Improvements or additions to documentation",
+                           "color":  "0075ca"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41yQ",
+                           "name":  "dynamic-programming",
+                           "description":  "",
+                           "color":  "8250df"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43Ew",
+                           "name":  "testing",
+                           "description":  "",
+                           "color":  "65758b"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  10,
+        "state":  "OPEN",
+        "title":  "Test and document Value Iteration",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/10"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODIL5CQ",
+                              "login":  "Basmala-ElKady",
+                              "name":  "Basmala ElKady",
+                              "databaseId":  209910025
+                          }
+                      ],
+        "body":  "## Objective\nLearn action values from sampled interaction without accessing the transition model.\n\n## Ownership and scope\n- Backlog ID: SNAKE-11\n- Priority: High\n- Files: q_learning.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 03: Implement core Snake environment, Backlog 04: Implement deterministic transition interface\n\n## Tasks and acceptance criteria\n- [ ] Use a dictionary-based Q-table keyed by full state with three action values.\n- [ ] Implement the Q-learning TD update using configurable alpha and gamma.\n- [ ] Bootstrap nonterminal transitions, including external truncation; use zero bootstrap for true terminal transitions.\n- [ ] Provide greedy action selection, documented tie-breaking and safe initialization of unseen states.\n- [ ] Do not use a prebuilt RL algorithm.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41_w",
+                           "name":  "q-learning",
+                           "description":  "",
+                           "color":  "1a7f37"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  11,
+        "state":  "OPEN",
+        "title":  "Implement Q-Learning agent from scratch",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/11"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCRfTLg",
+                              "login":  "jowairyakassem",
+                              "name":  "Jowairya Kassem",
+                              "databaseId":  152556334
+                          }
+                      ],
+        "body":  "## Objective\nBalance exploration and exploitation during learning.\n\n## Ownership and scope\n- Backlog ID: SNAKE-12\n- Priority: High\n- Files: q_learning.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 11: Implement Q-Learning agent from scratch\n\n## Tasks and acceptance criteria\n- [ ] Implement uniform random action selection with probability epsilon and greedy selection otherwise.\n- [ ] Decay epsilon per episode from 1.0 toward a configurable floor of 0.05.\n- [ ] Use an explicit seeded random generator and shared configuration.\n- [ ] Disable exploration for greedy evaluation without mutating trained Q-values.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41_w",
+                           "name":  "q-learning",
+                           "description":  "",
+                           "color":  "1a7f37"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  12,
+        "state":  "OPEN",
+        "title":  "Implement epsilon-greedy exploration",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/12"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODIL5CQ",
+                              "login":  "Basmala-ElKady",
+                              "name":  "Basmala ElKady",
+                              "databaseId":  209910025
+                          }
+                      ],
+        "body":  "## Objective\nProvide consistent orchestration and logging for all three methods.\n\n## Ownership and scope\n- Backlog ID: SNAKE-13\n- Priority: High\n- Files: train.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 03: Implement core Snake environment, Backlog 08: Implement Value Iteration from scratch, Backlog 12: Implement epsilon-greedy exploration, Backlog 17: Implement REINFORCE Policy Gradient updates\n\n## Tasks and acceptance criteria\n- [ ] Support selection of Value Iteration, Q-Learning or REINFORCE via a common entry point.\n- [ ] Run episode training for Q-Learning and REINFORCE and iteration-based planning for Value Iteration.\n- [ ] Use comparable initial-state schedules and fixed seeds; keep rendering disabled during timed runs.\n- [ ] Record episode return, steps, apples, success, truncation and elapsed training time; log DP residuals separately.\n- [ ] Expose configurable training budgets and return trained policy plus metrics.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41_w",
+                           "name":  "q-learning",
+                           "description":  "",
+                           "color":  "1a7f37"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43TQ",
+                           "name":  "integration",
+                           "description":  "",
+                           "color":  "5319e7"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  13,
+        "state":  "OPEN",
+        "title":  "Develop the unified agent training pipeline",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/13"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODIL5CQ",
+                              "login":  "Basmala-ElKady",
+                              "name":  "Basmala ElKady",
+                              "databaseId":  209910025
+                          }
+                      ],
+        "body":  "## Objective\nMake trained policies reusable in the demo and evaluation.\n\n## Ownership and scope\n- Backlog ID: SNAKE-14\n- Priority: Medium\n- Files: models/, train.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 09: Extract optimal policy and record convergence, Backlog 13: Develop the unified agent training pipeline, Backlog 17: Implement REINFORCE Policy Gradient updates\n\n## Tasks and acceptance criteria\n- [ ] Define a versioned serialization format that preserves full-state keys and algorithm parameters.\n- [ ] Save Value Iteration policy, Q-table and REINFORCE logits with configuration, seeds and metadata.\n- [ ] Implement consistent load functions and reject incompatible model configuration.\n- [ ] Test save/load round trips and confirm the loaded model selects the same actions on known states.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43TQ",
+                           "name":  "integration",
+                           "description":  "",
+                           "color":  "5319e7"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  14,
+        "state":  "OPEN",
+        "title":  "Implement model saving and loading",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/14"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODIL5CQ",
+                              "login":  "Basmala-ElKady",
+                              "name":  "Basmala ElKady",
+                              "databaseId":  209910025
+                          }
+                      ],
+        "body":  "## Objective\nVerify the TD agent and explain its learning behavior.\n\n## Ownership and scope\n- Backlog ID: SNAKE-15\n- Priority: Medium\n- Files: tests/test_q_learning.py, report/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 11: Implement Q-Learning agent from scratch, Backlog 12: Implement epsilon-greedy exploration\n\n## Tasks and acceptance criteria\n- [ ] Test a hand-calculated Q-value update for ordinary and terminal transitions.\n- [ ] Test epsilon extremes, decay floor and unseen-state handling.\n- [ ] Check that truncation and true termination are treated differently.\n- [ ] Document TD equation, exploration schedule, hyperparameters and limitations; include test evidence.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFUnhVQ",
+                           "name":  "documentation",
+                           "description":  "Improvements or additions to documentation",
+                           "color":  "0075ca"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU41_w",
+                           "name":  "q-learning",
+                           "description":  "",
+                           "color":  "1a7f37"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43Ew",
+                           "name":  "testing",
+                           "description":  "",
+                           "color":  "65758b"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  15,
+        "state":  "OPEN",
+        "title":  "Test and document Q-Learning",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/15"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCMfRDg",
+                              "login":  "vexon-016",
+                              "name":  "mohamed-alaa-016",
+                              "databaseId":  147312910
+                          }
+                      ],
+        "body":  "## Objective\nRepresent a learnable stochastic policy over the three actions.\n\n## Ownership and scope\n- Backlog ID: SNAKE-16\n- Priority: High\n- Files: reinforce.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 03: Implement core Snake environment, Backlog 04: Implement deterministic transition interface\n\n## Tasks and acceptance criteria\n- [ ] Store three logits per full state and initialize unseen states consistently.\n- [ ] Implement numerically stable Softmax by subtracting the maximum logit.\n- [ ] Sample actions using a seeded random generator and return valid probabilities.\n- [ ] Expose greedy action selection for the shared evaluation protocol.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU42NA",
+                           "name":  "policy-gradient",
+                           "description":  "",
+                           "color":  "bf8700"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  16,
+        "state":  "OPEN",
+        "title":  "Implement tabular Softmax policy",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/16"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCRfTLg",
+                              "login":  "jowairyakassem",
+                              "name":  "Jowairya Kassem",
+                              "databaseId":  152556334
+                          }
+                      ],
+        "body":  "## Objective\nOptimize the policy directly from collected episode trajectories.\n\n## Ownership and scope\n- Backlog ID: SNAKE-17\n- Priority: High\n- Files: reinforce.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 16: Implement tabular Softmax policy\n\n## Tasks and acceptance criteria\n- [ ] Store state, action and reward for each trajectory; keep policy fixed while collecting the episode.\n- [ ] Compute discounted reward-to-go backwards with shared gamma.\n- [ ] Implement tabular log-Softmax gradients and the chosen discounted REINFORCE update from scratch, accumulating episode gradients before updating parameters.\n- [ ] Use configurable learning rate and document how truncated trajectories are treated (finite sampled return).\n- [ ] Log episode rewards and success without introducing a hidden reward change.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU42NA",
+                           "name":  "policy-gradient",
+                           "description":  "",
+                           "color":  "bf8700"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  17,
+        "state":  "OPEN",
+        "title":  "Implement REINFORCE Policy Gradient updates",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/17"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCMfRDg",
+                              "login":  "vexon-016",
+                              "name":  "mohamed-alaa-016",
+                              "databaseId":  147312910
+                          }
+                      ],
+        "body":  "## Objective\nVisualize training and planning convergence clearly.\n\n## Ownership and scope\n- Backlog ID: SNAKE-18\n- Priority: Medium\n- Files: plots.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 13: Develop the unified agent training pipeline\n\n## Tasks and acceptance criteria\n- [ ] Plot reward versus episode for Q-Learning and REINFORCE; show raw or averaged traces with a documented moving-average window.\n- [ ] Plot success rate and food collected over training windows.\n- [ ] Plot Value Iteration maximum Bellman value change versus sweep on a separate axis/figure.\n- [ ] Label axes, units, method names and smoothing; export readable figures to results/.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU421A",
+                           "name":  "visualization",
+                           "description":  "",
+                           "color":  "0e8a89"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  18,
+        "state":  "OPEN",
+        "title":  "Generate training learning curves",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/18"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCMfRDg",
+                              "login":  "vexon-016",
+                              "name":  "mohamed-alaa-016",
+                              "databaseId":  147312910
+                          }
+                      ],
+        "body":  "## Objective\nCreate report-ready charts from held-out evaluation records.\n\n## Ownership and scope\n- Backlog ID: SNAKE-19\n- Priority: Medium\n- Files: plots.py, results/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 18: Generate training learning curves, Backlog 22: Implement unified evaluation framework\n\n## Tasks and acceptance criteria\n- [ ] Compare average total reward, success rate, food collected, steps to win and training/planning time.\n- [ ] Include variability across independent runs with clearly labeled error bars; handle missing winning episodes as N/A.\n- [ ] Use actual evaluation CSV data rather than invented values.\n- [ ] Export labeled PNG figures and keep metric definitions consistent with evaluate.py.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU42nQ",
+                           "name":  "evaluation",
+                           "description":  "",
+                           "color":  "0969da"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU421A",
+                           "name":  "visualization",
+                           "description":  "",
+                           "color":  "0e8a89"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  19,
+        "state":  "OPEN",
+        "title":  "Generate algorithm comparison charts",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/19"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCMfRDg",
+                              "login":  "vexon-016",
+                              "name":  "mohamed-alaa-016",
+                              "databaseId":  147312910
+                          }
+                      ],
+        "body":  "## Objective\nValidate Policy Gradient calculations and explain experimental limitations.\n\n## Ownership and scope\n- Backlog ID: SNAKE-20\n- Priority: Medium\n- Files: tests/test_reinforce.py, report/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 16: Implement tabular Softmax policy, Backlog 17: Implement REINFORCE Policy Gradient updates\n\n## Tasks and acceptance criteria\n- [ ] Test Softmax normalization and numerical stability.\n- [ ] Test discounted returns against a hand-calculated trajectory.\n- [ ] Test gradient direction on a simple known trajectory and reproducibility with seeds.\n- [ ] Document the policy equation, update rule, exploration through sampling, variance and truncation treatment.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFUnhVQ",
+                           "name":  "documentation",
+                           "description":  "Improvements or additions to documentation",
+                           "color":  "0075ca"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU42NA",
+                           "name":  "policy-gradient",
+                           "description":  "",
+                           "color":  "bf8700"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43Ew",
+                           "name":  "testing",
+                           "description":  "",
+                           "color":  "65758b"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  20,
+        "state":  "OPEN",
+        "title":  "Test and document REINFORCE",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/20"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCMfRDg",
+                              "login":  "vexon-016",
+                              "name":  "mohamed-alaa-016",
+                              "databaseId":  147312910
+                          }
+                      ],
+        "body":  "## Objective\nBuild an interactive demonstration of the shared Snake environment.\n\n## Ownership and scope\n- Backlog ID: SNAKE-21\n- Priority: High\n- Files: game_ui.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 03: Implement core Snake environment\n\n## Tasks and acceptance criteria\n- [ ] Render grid, obstacles, snake head/body and food without duplicating environment logic.\n- [ ] Provide algorithm selection, start/reset controls and a trained-agent demo.\n- [ ] Display score, collected apples, cumulative reward, steps and game status.\n- [ ] Separate frame rate from environment steps and keep rendering optional.\n- [ ] Integrate saved policies when the shared loader becomes available; verify all three demos.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU42aw",
+                           "name":  "frontend",
+                           "description":  "",
+                           "color":  "bf3989"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  21,
+        "state":  "OPEN",
+        "title":  "Design and implement Pygame interface",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/21"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCRfTLg",
+                              "login":  "jowairyakassem",
+                              "name":  "Jowairya Kassem",
+                              "databaseId":  152556334
+                          }
+                      ],
+        "body":  "## Objective\nCompare the trained policies fairly on held-out evaluation episodes.\n\n## Ownership and scope\n- Backlog ID: SNAKE-22\n- Priority: High\n- Files: evaluate.py, results/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 13: Develop the unified agent training pipeline, Backlog 14: Implement model saving and loading\n\n## Tasks and acceptance criteria\n- [ ] Use the same game rules, reward settings, initial-state schedule and evaluation scenarios for each algorithm; fix hyperparameters before final testing.\n- [ ] Run five independent training runs and 100 evaluation episodes per run as initial experimental targets, with reproducible seeds and documented actual counts.\n- [ ] Evaluate without learning or epsilon exploration; use greedy actions for all policies and document tie-breaking and deterministic repeats.\n- [ ] Calculate mean total reward, win rate, mean apples, winning steps, training/planning time and variability across runs.\n- [ ] Export raw episode records and summary CSV; document planning/model access versus sampled learning and any time-limit differences.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU42nQ",
+                           "name":  "evaluation",
+                           "description":  "",
+                           "color":  "0969da"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  22,
+        "state":  "OPEN",
+        "title":  "Implement unified evaluation framework",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/22"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDODIL5CQ",
+                              "login":  "Basmala-ElKady",
+                              "name":  "Basmala ElKady",
+                              "databaseId":  209910025
+                          }
+                      ],
+        "body":  "## Objective\nProvide a single working entry point for the complete project.\n\n## Ownership and scope\n- Team member: Hoda (@HodaMahmoud-2005)\n- Backlog ID: SNAKE-23\n- Priority: High\n- Files: main.py, tests/test_integration.py\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 14: Implement model saving and loading, Backlog 21: Design and implement Pygame interface, Backlog 22: Implement unified evaluation framework\n\n## Tasks and acceptance criteria\n- [ ] Expose train, evaluate and demo modes with documented algorithm selection.\n- [ ] Use shared config, environment, saved model loader and evaluation functions.\n- [ ] Handle missing/incompatible model files and invalid arguments with clear messages.\n- [ ] Run end-to-end smoke tests for all three algorithms and verify headless evaluation works without Pygame display.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43Ew",
+                           "name":  "testing",
+                           "description":  "",
+                           "color":  "65758b"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43TQ",
+                           "name":  "integration",
+                           "description":  "",
+                           "color":  "5319e7"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  23,
+        "state":  "OPEN",
+        "title":  "Integrate all modules into the main application",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/23"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCRfTLg",
+                              "login":  "jowairyakassem",
+                              "name":  "Jowairya Kassem",
+                              "databaseId":  152556334
+                          }
+                      ],
+        "body":  "## Objective\nMake the project reproducible for instructors and teammates.\n\n## Ownership and scope\n- Backlog ID: SNAKE-24\n- Priority: Medium\n- Files: README.md\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 01: Initialize project structure and dependencies, Backlog 23: Integrate all modules into the main application\n\n## Tasks and acceptance criteria\n- [ ] Explain project objective, rules, rewards, algorithms and folder structure.\n- [ ] Document setup, dependencies and exact tested commands for training, evaluation and demo.\n- [ ] Describe configuration, model artifacts, results and how to run tests.\n- [ ] Include known limitations, team responsibilities and links to the report or results as appropriate.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFUnhVQ",
+                           "name":  "documentation",
+                           "description":  "Improvements or additions to documentation",
+                           "color":  "0075ca"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU436g",
+                           "name":  "priority: medium",
+                           "description":  "",
+                           "color":  "bf8700"
+                       }
+                   ],
+        "number":  24,
+        "state":  "OPEN",
+        "title":  "Write project README and execution instructions",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/24"
+    },
+    {
+        "assignees":  [
+                          {
+                              "id":  "U_kgDOCRfTLg",
+                              "login":  "jowairyakassem",
+                              "name":  "Jowairya Kassem",
+                              "databaseId":  152556334
+                          }
+                      ],
+        "body":  "## Objective\nDeliver the required report and team contribution evidence.\n\n## Ownership and scope\n- Backlog ID: SNAKE-25\n- Priority: High\n- Files: report/\n- Dependencies (backlog references, not GitHub issue numbers): Backlog 05: Test and document the Snake environment, Backlog 10: Test and document Value Iteration, Backlog 15: Test and document Q-Learning, Backlog 19: Generate algorithm comparison charts, Backlog 20: Test and document REINFORCE, Backlog 22: Implement unified evaluation framework, Backlog 23: Integrate all modules into the main application, Backlog 24: Write project README and execution instructions\n\n## Tasks and acceptance criteria\n- [ ] Combine objective, game description, state/action/transition/reward/termination design and algorithm equations.\n- [ ] Document implementation, hyperparameters, evaluation protocol, actual tables/plots, comparative analysis and references.\n- [ ] Discuss state-space complexity, reward design, hyperparameters, limitations and conclusions supported by measured results.\n- [ ] Collect contribution log entries and evidence from every member; include shared testing and presentation preparation.\n- [ ] Verify source code, run instructions, game demo, written report and contribution log are ready for submission.\n\n## Definition of done\n- [ ] Relevant code or documentation is committed and linked in a pull request.\n- [ ] Applicable tests or checks pass and evidence is included.\n- [ ] Another team member reviews the work.\n- [ ] Contribution evidence is recorded for the final report.\n",
+        "labels":  [
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFUnhVQ",
+                           "name":  "documentation",
+                           "description":  "Improvements or additions to documentation",
+                           "color":  "0075ca"
+                       },
+                       {
+                           "id":  "LA_kwDOV9eZOM8AAAADFU43lA",
+                           "name":  "priority: high",
+                           "description":  "",
+                           "color":  "cf222e"
+                       }
+                   ],
+        "number":  25,
+        "state":  "OPEN",
+        "title":  "Compile final report and submission package",
+        "url":  "https://github.com/HodaMahmoud-2005/Snake-AI-Reinforcement-Learning-Simulator/issues/25"
+    }
+]
