@@ -1,20 +1,78 @@
-# Python caches and coverage
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Local environments and secrets
+# ==============================
+# Python virtual environments
+# ==============================
 .venv/
 venv/
 env/
+ENV/
+.venv-check/
+
+# ==============================
+# Python cache and bytecode
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ==============================
+# Testing and coverage
+# ==============================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# ==============================
+# Development tool caches
+# ==============================
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ==============================
+# IDE and editor settings
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==============================
+# Operating system files
+# ==============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Temporary files
+# ==============================
+*.tmp
+*.temp
+*.bak
+*.log
+*~
+temp/
+tmp/
+
+# ==============================
+# Local secrets and settings
+# ==============================
 .env
 .env.*
 !.env.example
 
-# Local temporary files
-*.tmp
-*.swp
-.DS_Store
-Thumbs.db
+# ==============================
+# Python build artifacts
+# ==============================
+build/
+dist/
+*.egg-info/
+*.whl
+
+# ==============================
+# Project deliverables
+# ==============================
+# Keep trained models, experimental
+# results, figures, reports and docs
+# tracked when required.
