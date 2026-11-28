@@ -1,4 +1,4 @@
-"""Core deterministic mechanics for the Snake game."""
+"""Deterministic transition model for the Snake environment."""
 
 from dataclasses import dataclass
 
@@ -14,7 +14,6 @@ from configs.settings import (
 
 Position = tuple[int, int]
 
-
 DIRECTION_VECTORS = {
     Direction.UP: (0, -1),
     Direction.RIGHT: (1, 0),
@@ -22,19 +21,22 @@ DIRECTION_VECTORS = {
     Direction.LEFT: (-1, 0),
 }
 
+VECTOR_DIRECTIONS = {
+    vector: direction
+    for direction, vector in DIRECTION_VECTORS.items()
+}
+
+
+# ==================================================
+# Immutable planning state
+# ==================================================
 
 @dataclass(frozen=True, slots=True)
 class SnakeState:
-    """Immutable and hashable representation of the game."""
+    """Planning state containing only body and food."""
 
     body: tuple[Position, ...]
-    direction: Direction
     food: Position | None
-    score: int = 0
-    steps: int = 0
-    terminated: bool = False
-    truncated: bool = False
-    termination_reason: str | None = None
 
     @property
     def head(self) -> Position:
@@ -49,28 +51,54 @@ class SnakeState:
         return len(self.body)
 
     @property
-    def done(self) -> bool:
-        return self.terminated or self.truncated
+    def direction(self) -> Direction:
+        """Derive heading from the head and neck."""
 
+        head = self.body[0]
+        neck = self.body[1]
+
+        vector = (
+            head[0] - neck[0],
+            head[1] - neck[1],
+        )
+
+        return VECTOR_DIRECTIONS[vector]
+
+    def apples_collected(
+        self,
+        initial_length: int = GAME_CONFIG.initial_snake_length,
+    ) -> int:
+        """Derive collected apples from body length."""
+
+        return self.length - initial_length
+
+    @property
+    def score(self) -> int:
+        """Score under the default game configuration."""
+
+        return self.apples_collected()
+
+
+# ==================================================
+# Relative movement
+# ==================================================
 
 def turn_direction(
     direction: Direction,
     action: int | Action,
 ) -> Direction:
-    """Convert a relative action into an absolute direction."""
+    """Convert a relative action to an absolute heading."""
 
-    if isinstance(action, bool) or action not in (0, 1, 2):
+    if (
+        isinstance(action, bool)
+        or not isinstance(action, int)
+        or action not in (0, 1, 2)
+    ):
         raise ValueError("Action must be 0, 1 or 2.")
 
-    action = Action(action)
-
-    if action == Action.LEFT:
-        return Direction((int(direction) - 1) % 4)
-
-    if action == Action.RIGHT:
-        return Direction((int(direction) + 1) % 4)
-
-    return direction
+    return Direction(
+        (int(direction) + int(action) - 1) % 4
+    )
 
 
 def next_head_position(
@@ -88,7 +116,7 @@ def is_inside_grid(
     position: Position,
     config: GameConfig = GAME_CONFIG,
 ) -> bool:
-    """Check whether a position is inside the grid."""
+    """Check grid boundaries."""
 
     x, y = position
 
@@ -98,12 +126,16 @@ def is_inside_grid(
     )
 
 
+# ==================================================
+# Deterministic food placement
+# ==================================================
+
 def spawn_food(
     body: tuple[Position, ...],
     score: int,
     config: GameConfig = GAME_CONFIG,
 ) -> Position | None:
-    """Spawn food using the fixed sequence and deterministic fallback."""
+    """Use the fixed food sequence and row-major fallback."""
 
     if score >= config.apples_to_win:
         return None
@@ -118,8 +150,6 @@ def spawn_food(
     ):
         return preferred
 
-    # Row-major fallback:
-    # (0, 0), (1, 0), ..., (4, 4).
     for y in range(config.grid_height):
         for x in range(config.grid_width):
             position = (x, y)
@@ -132,122 +162,166 @@ def spawn_food(
     )
 
 
-def transition(
+# ==================================================
+# Shared collision detection
+# ==================================================
+
+def get_collision_reason(
+    state: SnakeState,
+    new_head: Position,
+    eating: bool,
+    config: GameConfig = GAME_CONFIG,
+) -> str | None:
+    """Return the collision reason, if any."""
+
+    if not is_inside_grid(new_head, config):
+        return "wall_collision"
+
+    if new_head in config.obstacles:
+        return "obstacle_collision"
+
+    # The tail vacates its position on non-growth moves.
+    occupied_body = (
+        state.body if eating else state.body[:-1]
+    )
+
+    if new_head in occupied_body:
+        return "self_collision"
+
+    return None
+
+
+# ==================================================
+# Detailed deterministic transition
+# ==================================================
+
+@dataclass(frozen=True, slots=True)
+class TransitionResult:
+    next_state: SnakeState
+    reward: float
+    terminated: bool
+    termination_reason: str | None = None
+
+
+def resolve_transition(
     state: SnakeState,
     action: int | Action,
     config: GameConfig = GAME_CONFIG,
     rewards: RewardConfig = REWARD_CONFIG,
-) -> tuple[SnakeState, float]:
-    """Calculate a deterministic transition without mutating the state."""
+) -> TransitionResult:
+    """Shared transition implementation for planning and gameplay."""
 
-    if state.done:
-        raise RuntimeError(
-            "Episode has ended. Reset the environment first."
-        )
-
-    new_direction = turn_direction(
+    direction = turn_direction(
         state.direction,
         action,
     )
 
-    new_head = next_head_position(
-        state.head,
-        new_direction,
+    score = state.apples_collected(
+        config.initial_snake_length
     )
 
-    new_steps = state.steps + 1
+    # Winning states are absorbing.
+    if score >= config.apples_to_win:
+        return TransitionResult(
+            next_state=state,
+            reward=0.0,
+            terminated=True,
+            termination_reason="win",
+        )
+
+    new_head = next_head_position(
+        state.head,
+        direction,
+    )
 
     eating = (
         state.food is not None
         and new_head == state.food
     )
 
-    collision_reason = None
+    collision_reason = get_collision_reason(
+        state,
+        new_head,
+        eating,
+        config,
+    )
 
-    # Wall collision.
-    if not is_inside_grid(new_head, config):
-        collision_reason = "wall_collision"
-
-    # Obstacle collision.
-    elif new_head in config.obstacles:
-        collision_reason = "obstacle_collision"
-
-    else:
-        # The tail vacates its cell during a normal move.
-        # During growth, the entire body remains occupied.
-        occupied_body = (
-            state.body
-            if eating
-            else state.body[:-1]
-        )
-
-        if new_head in occupied_body:
-            collision_reason = "self_collision"
-
-    # Collision takes priority over the time limit.
     if collision_reason is not None:
-        next_state = SnakeState(
-            body=state.body,
-            direction=state.direction,
-            food=state.food,
-            score=state.score,
-            steps=new_steps,
+        return TransitionResult(
+            next_state=state,
+            reward=rewards.collision,
             terminated=True,
-            truncated=False,
             termination_reason=collision_reason,
         )
 
-        return next_state, rewards.collision
-
-    # Apply a legal movement.
     if eating:
         new_body = (new_head,) + state.body
-        new_score = state.score + 1
-        reward = rewards.food
-    else:
-        new_body = (new_head,) + state.body[:-1]
-        new_score = state.score
-        reward = rewards.move
+        new_score = score + 1
 
-    # Winning takes priority over the time limit.
-    if new_score >= config.apples_to_win:
-        next_state = SnakeState(
-            body=new_body,
-            direction=new_direction,
-            food=None,
-            score=new_score,
-            steps=new_steps,
-            terminated=True,
-            truncated=False,
-            termination_reason="win",
-        )
+        if new_score >= config.apples_to_win:
+            return TransitionResult(
+                next_state=SnakeState(
+                    body=new_body,
+                    food=None,
+                ),
+                reward=rewards.final_apple,
+                terminated=True,
+                termination_reason="win",
+            )
 
-        return next_state, rewards.final_apple
-
-    # Spawn the next apple after growth.
-    if eating:
         new_food = spawn_food(
             new_body,
             new_score,
             config,
         )
-    else:
-        new_food = state.food
 
-    # Time limit does not change the movement reward.
-    truncated = new_steps >= config.max_steps
+        return TransitionResult(
+            next_state=SnakeState(
+                body=new_body,
+                food=new_food,
+            ),
+            reward=rewards.food,
+            terminated=False,
+        )
 
-    next_state = SnakeState(
-        body=new_body,
-        direction=new_direction,
-        food=new_food,
-        score=new_score,
-        steps=new_steps,
-        terminated=False,
-        truncated=truncated,
-        termination_reason=(
-            "step_limit" if truncated else None
+    # Ordinary movement without growth.
+    new_body = (new_head,) + state.body[:-1]
+
+    return TransitionResult(
+        next_state=SnakeState(
+            body=new_body,
+            food=state.food,
         ),
+        reward=rewards.move,
+        terminated=False,
     )
 
-    return next_state, reward
+
+# ==================================================
+# Public planning interface
+# ==================================================
+
+def transition(
+    state: SnakeState,
+    action: int | Action,
+    config: GameConfig = GAME_CONFIG,
+    rewards: RewardConfig = REWARD_CONFIG,
+) -> tuple[SnakeState, float, bool]:
+    """Return next state, reward and true-terminal flag.
+
+    This function does not mutate a live environment,
+    use randomness, or apply an episode step limit.
+    """
+
+    result = resolve_transition(
+        state,
+        action,
+        config,
+        rewards,
+    )
+
+    return (
+        result.next_state,
+        result.reward,
+        result.terminated,
+    )
